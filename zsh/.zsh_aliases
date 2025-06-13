@@ -1,0 +1,53 @@
+# dev tools
+## git
+alias lsmbs="git branch | grep brian/ | sed 's|brian/||'"
+alias lsmmbs="git branch | grep matzelle/"
+alias gcm="git commit -m"
+## yarn
+alias ys="yarn start"
+alias yrd="yarn run dev"
+## tmux
+alias ta="tmux attach -t"
+alias tn="tmux new -s"
+alias tk="tmux kill-session -t"
+
+# python
+alias pt="python -m pipenv run pytest"
+alias pym="python -m "
+alias p10="python3.10"
+
+# java
+alias s-amplify="mvn spring-boot:run -Dspring.profiles.active=local" # start amplify
+
+# self
+alias reload='source ~/.zshrc'
+alias edit-zshrc='nvim ~/.zshrc'
+alias edit-aliases='nvim ~/.zsh_aliases'
+alias edit-env='nvim ~/.env'
+alias edit-functions='nvim ~/.zsh_functions'
+
+# coding
+alias lvim="/Users/brianmatzelle/.local/bin/lvim"
+alias ts="tmux new-session -A -s default"
+
+# Music
+alias dl-mp3='noglob yt-dlp -x --audio-format mp3 --'
+alias dl-sample='cd ~/production/samples && noglob yt-dlp -x --audio-format mp3 --'
+alias lofi-girl='noglob mpv https://www.youtube.com/watch?v=jfKfPfyJRdk'
+alias brown-noise='noglob mpv https://www.youtube.com/watch?v=RqzGzwTY-6w'
+alias sesh='lofi-girl & && brown-noise &'
+
+# command line enhancements
+alias ll="ls -alG"
+alias grep='grep --color=always'
+
+alias iitoken="curl -vvv -u 'com.sagesure.spf.automation:9GmdmgrdMnNSYHE7k4bfrI5JPMdjmLcD' https://cluster.ss-stage.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"
+alias iitokenuat="curl -vvv -u 'com.sagesure.spf.automation:JYoS4KIYd1bBpVmTAeXQTV8TJ' https://cluster.uat.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"
+alias iitokentrn="curl -vvv -u 'com.sagesure.spf.automation:4gJyrPO6yyvBWct1v9FFh5D' https://cluster.ss-training.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"
+alias iitokenme="curl -vvv -u 'brian.bowman:6Elin0pU0fE7_Ch' https://cluster.ss-stage.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"
+alias iitokendev="curl -vvv -u 'dev@icg360.com:movieLunchesFTW2015' https://cluster.ss-stage.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"
+alias iitokenprdft="curl -vvv -u 'com.apps.policycentraltools.user:20productimp17' https://cluster.ss-stage.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"
+alias iitokenpdm="curl -vvv -u 'com.sagesure.pdm.automation:8PeFzHRMMdcjmywvRyN66Mxb' https://cluster.ss-stage.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"
+alias iitokenbxb="curl -vvv -u 'com.sagesure.bxb.automation:PWSvfbHw5FmXGJevCm6gN5ShJSrnWKhuEckwm' https://cluster.ss-stage.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"
+alias iitokenbxbnoprodroles="curl -vvv -u 'com.sagesure.bxb.automation.productless:8rpyxjwCLvk7Whrf3qZBJy6a' https://cluster.ss-stage.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"
+alias iitokenpdmbff="curl -vvv -u 'com.sagesure.apps.products-module-bff:3bV6UTvAZvaudUb7LFpKGGuh' https://cluster.ss-stage.icg360.net/ixauth/proxy/ 2>&1 | grep insight-identity"

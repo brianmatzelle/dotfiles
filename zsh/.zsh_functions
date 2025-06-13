@@ -1,0 +1,144 @@
+jasypt() {
+  local action=$1
+  [ -z $action ] && { echo "usage: jasypt [encrypt|decrypt] [args]"; return; }
+  shift
+  bash ~/manual-installs/jasypt-1.9.3/bin/${action}.sh algorithm="PBEWITHHMACSHA512ANDAES_256" ivGeneratorClassName="org.jasypt.iv.RandomIvGenerator" verbose="false" "$@"
+}
+
+f_size() {
+  if [ -z "$1" ]; then
+    echo "Usage: f_size <folder_path>"
+    return 1
+  fi
+
+  if [ -d "$1" ]; then
+    du -sh "$1"
+  else
+    echo "Error: '$1' is not a valid directory."
+    return 1
+  fi
+}
+
+over100mb() {
+  if [ -z "$1" ]; then
+    echo "Usage: over100mb <directory_path>"
+    return 1
+  fi
+
+  if [ -d "$1" ]; then
+    find "$1" -type f -size +100M -exec ls -lh {} \; | awk '{ print $9 ": " $5 }'
+  else
+    echo "Error: '$1' is not a valid directory."
+    return 1
+  fi
+}
+
+get_update_prod_msg() {
+    local custom_message=$1
+    local timestamp=$(date '+%Y-%m-%d %H:%M')
+    echo "${custom_message:-added resources} - $timestamp"
+}
+
+update_p() {
+    local custom_message=""
+    
+    # Parse arguments for -m flag
+    while [[ "$#" -gt 0 ]]; do
+        case $1 in
+            -m|--message)
+                custom_message="$2"
+                shift 2
+                ;;
+            *)
+                echo "Unknown option: $1"
+                return 1
+                ;;
+        esac
+    done
+
+    cd ~/production || echo "~/production not found"
+    git add .
+    git commit -m "$(get_update_prod_msg "$custom_message")"
+    git push
+}
+
+av() {
+  for dir in venv .venv; do
+    if [ -d "$dir" ]; then
+      source "$dir/bin/activate"
+      echo "$dir activated"
+      echo "using python $(which python)"
+      echo "$(python --version)"
+      return
+    fi
+  done
+  echo "No virtual environment named venv or .venv found in the current directory."
+}
+
+ptkh() {
+  if [ -z "$1" ]; then
+    echo "Usage: ptkh <test_name>"
+    return 1
+  fi
+
+  local test_name="$1"
+  pt -k "$test_name" --headed
+}
+
+ptk() {
+  if [ -z "$1" ]; then
+    echo "Usage: ptk <test_name>"
+    return 1
+  fi
+
+  local test_name="$1"
+  pt -k "$test_name"
+}
+
+# Function to remove all __pycache__ directories
+cleanpyc() {
+    echo "Searching for __pycache__ directories..."
+    find . -type d -name "__pycache__" -exec rm -rf {} +
+    echo "All __pycache__ directories have been removed."
+}
+
+ai() {
+  local model="llama3.1"  # Default model
+  local prompt=""
+  
+  # Parse arguments
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -m|--model)
+        model="$2"
+        shift 2
+        ;;
+      *)
+        prompt+="$1 "
+        shift
+        ;;
+    esac
+  done
+
+  # Trim trailing space
+  prompt="${prompt%" "}"
+
+  curl -sN http://localhost:11434/api/generate -d "{
+    \"model\": \"$model\",
+    \"prompt\": \"$prompt\"
+  }" | jq -r '.response' | tr -d '\n' | sed 's/  */ /g'
+  echo ""  # Ensure a newline at the end
+}
+
+trs() {
+  if [ $# -ne 2 ]; then
+		echo "tmux rename session function -"
+    echo "Usage: trs <session> <name>"
+    return 1
+  fi
+  
+  local session="$1"
+  local name="$2"
+  tmux rename-session -t "$session" "$name"
+}
+
