@@ -1,15 +1,21 @@
 # dev tools
 ## git
-alias lsmbs="git branch | grep brian/ | sed 's|brian/||'"
-alias lsmmbs="git branch | grep matzelle/"
+# alias lsmbs="git branch | grep matzelle/ | sed 's|matzelle/||'"
+alias lsmbs="git branch | grep matzelle/"
 alias gcm="git commit -m"
+alias main="git switch main"
 ## yarn
 alias ys="yarn start"
 alias yrd="yarn run dev"
+alias yt="yarn test"
 ## tmux
 alias ta="tmux attach -t"
 alias tn="tmux new -s"
 alias tk="tmux kill-session -t"
+## claude
+alias uc="npm i -g @anthropic-ai/claude-code"
+## misc
+alias ct="clear && task"
 
 # python
 alias pt="python -m pipenv run pytest"
@@ -25,6 +31,7 @@ alias edit-zshrc='nvim ~/.zshrc'
 alias edit-aliases='nvim ~/.zsh_aliases'
 alias edit-env='nvim ~/.env'
 alias edit-functions='nvim ~/.zsh_functions'
+alias edit-nvim="nvim ~/.config/nvim/init.lua"
 
 # coding
 alias lvim="/Users/brianmatzelle/.local/bin/lvim"

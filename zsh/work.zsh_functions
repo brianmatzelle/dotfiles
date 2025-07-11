@@ -142,3 +142,102 @@ trs() {
   tmux rename-session -t "$session" "$name"
 }
 
+tnc() {
+  local config="0"  # Default config
+  local session_name=""
+  
+  # Parse arguments
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -c|--config)
+        config="$2"
+        shift 2
+        ;;
+      *)
+        session_name="$1"
+        shift
+        ;;
+    esac
+  done
+  
+  if [ -z "$session_name" ]; then
+    echo "Usage: tnc <session_name> [-c config]"
+    return 1
+  fi
+  
+  # Config 0: Default layout with claude in pane 2
+  if [ "$config" = "0" ]; then
+    tmux new-session -d -s "$session_name" \; \
+      split-window -h \; \
+      select-pane -t 2 \; \
+      split-window -v \; \
+      select-pane -t 2 \; \
+      resize-pane -R 50 \; \
+      send-keys 'task' Enter \; \
+      select-pane -L \; \
+      send-keys 'nvim .' Enter \; \
+      attach-session -t "$session_name"
+  else
+    echo "Unknown config: $config"
+    return 1
+  fi
+}
+
+rebase() {
+  # Check if we're in a git repository
+  if ! git rev-parse --is-inside-work-tree >/dev/null 2>&1; then
+    echo "Error: Not in a git repository"
+    return 1
+  fi
+  
+  local auto_yes=false
+  local goodbye_msg="Ok goodbye :("
+  
+  # Parse arguments
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      -y|--yes)
+        auto_yes=true
+        shift
+        ;;
+      *)
+        echo "Unknown option: $1"
+        return 1
+        ;;
+    esac
+  done
+  
+  local current_branch=$(git branch --show-current)
+  
+  if [[ "$current_branch" == "main" || "$current_branch" == "master" ]]; then
+    echo "Error: Cannot rebase on main or master branch"
+    return 1
+  fi
+  
+  git fetch
+  
+  if [[ "$auto_yes" == false ]]; then
+    echo "About to run: git rebase origin/main"
+    read -k1 "?Continue? (y/N): " response
+    echo
+    if [[ "$response" != "y" && "$response" != "Y" ]]; then
+      echo "$goodbye_msg"
+      return 1
+    fi
+  fi
+  
+  git rebase origin/main
+  
+  if [[ "$auto_yes" == false ]]; then
+    echo "About to run: git push --force-with-lease"
+    read -k1 "?Continue? (y/N): " response
+    echo
+    if [[ "$response" != "y" && "$response" != "Y" ]]; then
+      echo "$goodbye_msg"
+      return 1
+    fi
+  fi
+  
+  git push --force-with-lease
+}
+
