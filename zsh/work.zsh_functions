@@ -169,9 +169,9 @@ tnc() {
   if [ "$config" = "0" ]; then
     tmux new-session -d -s "$session_name" \; \
       split-window -h \; \
-      select-pane -t 2 \; \
+      select-pane -t 1 \; \
       split-window -v \; \
-      select-pane -t 2 \; \
+      select-pane -t 1 \; \
       resize-pane -R 50 \; \
       send-keys 'task' Enter \; \
       select-pane -L \; \
