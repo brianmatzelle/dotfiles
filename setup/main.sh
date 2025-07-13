@@ -12,7 +12,7 @@ echo "Hi! Setting up your configs now."
 
 # TODO: setup nvim (git clone)
 
-ln -s $PWD/../zsh/work.zshrc ~/.zshrc
+# ln -s $PWD/../zsh/work.zshrc ~/.zshrc
 ln -s $PWD/../zsh/work.zsh_aliases ~/.zsh_aliases
 ln -s $PWD/../zsh/work.zsh_functions ~/.zsh_functions
 
