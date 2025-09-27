@@ -1,0 +1,105 @@
+configuration {
+  display-drun: ">> EXECUTE";
+  display-run: ">> RUN";
+  display-window: ">> WINDOWS";
+  drun-display-format: "{name}";
+  font: "Source Code Pro 11";
+  modi: "window,run,drun";
+  show-icons: true;
+  location: 0;
+  disable-history: false;
+  hide-scrollbar: true;
+  sidebar-mode: false;
+}
+
+@theme "/dev/null"
+
+* {
+  bg: #000000;
+  bg-alt: #001100;
+  fg: #00ff00;
+  fg-alt: #008800;
+  fg-dim: #004400;
+
+  background-color: @bg;
+
+  border: 0;
+  margin: 0;
+  padding: 0;
+  spacing: 0;
+}
+
+window {
+  width: 35%;
+  background-color: @bg;
+  border: 2px;
+  border-color: @fg;
+  border-radius: 0px;
+  children: [mainbox];
+}
+
+element {
+  padding: 8 12;
+  background-color: transparent;
+  text-color: @fg-alt;
+}
+
+element selected {
+  text-color: @bg;
+  background-color: @fg;
+  border-radius: 0px;
+}
+
+element-text {
+  background-color: transparent;
+  text-color: inherit;
+  vertical-align: 0.5;
+}
+
+element-icon {
+  size: 16;
+  padding: 0 8 0 0;
+  background-color: transparent;
+}
+
+entry {
+  padding: 12;
+  background-color: @bg;
+  text-color: @fg;
+  border: 1px;
+  border-color: @fg;
+  border-radius: 0px;
+  margin: 10px;
+  placeholder: "Search...";
+  placeholder-color: @fg-dim;
+}
+
+inputbar {
+  children: [prompt, entry];
+  background-color: @bg;
+  spacing: 0px;
+}
+
+listview {
+  background-color: @bg;
+  margin: 0 10 10 10;
+  border: 1px;
+  border-color: @fg-dim;
+}
+
+mainbox {
+  background-color: @bg;
+  children: [inputbar, listview];
+  padding: 10px;
+}
+
+prompt {
+  enabled: true;
+  padding: 12;
+  background-color: @fg;
+  text-color: @bg;
+  border-radius: 0px;
+  margin: 10px 0px 10px 10px;
+}
+
+/* vim: ft=sass
