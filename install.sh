@@ -56,8 +56,33 @@ else
     echo "⚠️  Warning: i3 directory not found in dotfiles"
 fi
 
+# Setup neovim config
+echo "Setting up neovim..."
+NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
+
+# Remove existing neovim config if it exists
+if [[ -e "$NVIM_CONFIG_DIR" || -L "$NVIM_CONFIG_DIR" ]]; then
+    echo "  Removing existing $NVIM_CONFIG_DIR"
+    rm -rf "$NVIM_CONFIG_DIR"
+fi
+
+# Clone kickstart.nvim
+echo "  Cloning kickstart.nvim configuration..."
+if git clone https://github.com/brianmatzelle/kickstart.nvim.git "$NVIM_CONFIG_DIR"; then
+    echo "  ✅ neovim configuration cloned successfully"
+else
+    echo "  ❌ Failed to clone neovim configuration"
+fi
+
 echo ""
 echo "🎉 Dotfiles installation complete!"
 echo ""
 echo "Symlinks created:"
-ls -la "$CONFIG_DIR" | grep -E "(rofi|i3)" || echo "No symlinks found"
+ls -la "$CONFIG_DIR" | grep -E "(rofi|i3)" || echo "No config symlinks found"
+echo ""
+echo "Neovim config:"
+if [[ -d "$NVIM_CONFIG_DIR" ]]; then
+    echo "✅ Neovim configuration installed at $NVIM_CONFIG_DIR"
+else
+    echo "❌ Neovim configuration not found"
+fi
