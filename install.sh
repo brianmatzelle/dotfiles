@@ -162,6 +162,8 @@ PACMAN_REQUIRED_PACKAGES=(
     "docker"               # Docker, docker-compose is installed by AUR docker-desktop
     "chromium"             # Chromium
     "ttf-dejavu"           # DejaVu Sans Mono
+    "wireguard-tools"      # WireGuard, needed for Mullvad VPN
+    "openresolv"           # Openresolv, needed for Mullvad VPN
 )
 
 AUR_REQUIRED_PACKAGES=(
@@ -171,6 +173,7 @@ AUR_REQUIRED_PACKAGES=(
     "pipes.sh"             # Pipes.sh
     "oh-my-posh"           # Oh My Posh
     "google-chrome"        # Google Chrome
+    "mullvad-vpn"         # Mullvad VPN
 )
 
 # Install required packages
