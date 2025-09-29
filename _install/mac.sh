@@ -106,6 +106,7 @@ BREW_REQUIRED_PACKAGES=(
     "fd"                 # File finder
     "zoxide"             # Directory jumper
     "jq"                 # JSON processor
+    "asciiquarium"       # Asciiquarium!
 )
 
 # Install required packages
