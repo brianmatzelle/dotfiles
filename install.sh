@@ -168,6 +168,7 @@ AUR_REQUIRED_PACKAGES=(
     "docker-desktop"     # Docker Desktop
     "pipes.sh"             # Pipes.sh
     "oh-my-posh"           # Oh My Posh
+    "google-chrome"        # Google Chrome
 )
 
 # Install required packages
