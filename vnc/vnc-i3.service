@@ -1,0 +1,18 @@
+[Unit]
+Description=VNC Server with i3 Window Manager
+After=network.target
+
+[Service]
+Type=forking
+WorkingDirectory=/home/cowboy
+ExecStartPre=/bin/sh -c 'mkdir -p /home/cowboy/.vnc /home/cowboy/.config/tigervnc'
+ExecStart=/home/cowboy/.vnc/start-vnc.sh
+ExecStop=/bin/sh -c 'pkill -f "vncsession.*cowboy.*:1" || pkill -f "Xvnc.*:1" || true'
+Restart=on-failure
+RestartSec=5
+KillMode=mixed
+KillSignal=SIGTERM
+TimeoutStopSec=10
+
+[Install]
+WantedBy=multi-user.target

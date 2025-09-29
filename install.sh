@@ -56,6 +56,13 @@ else
     echo "⚠️  Warning: i3 directory not found in dotfiles"
 fi
 
+# Setup ghostty config
+if [[ -d "$DOTFILES_DIR/ghostty" ]]; then
+    create_symlink "$DOTFILES_DIR/ghostty" "$CONFIG_DIR/ghostty" "ghostty"
+else
+    echo "⚠️  Warning: ghostty directory not found in dotfiles"
+fi
+
 # Setup neovim config
 echo "Setting up neovim..."
 NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
@@ -78,7 +85,7 @@ echo ""
 echo "🎉 Dotfiles installation complete!"
 echo ""
 echo "Symlinks created:"
-ls -la "$CONFIG_DIR" | grep -E "(rofi|i3)" || echo "No config symlinks found"
+ls -la "$CONFIG_DIR" | grep -E "(rofi|i3|ghostty)" || echo "No config symlinks found"
 echo ""
 echo "Neovim config:"
 if [[ -d "$NVIM_CONFIG_DIR" ]]; then
