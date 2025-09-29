@@ -1,5 +1,16 @@
 #!/bin/bash
 
+# Check if ddcutil is available and can detect displays
+if ! command -v ddcutil &> /dev/null; then
+    echo "ddcutil not installed"
+    exit 1
+fi
+
+if ! ddcutil detect &> /dev/null; then
+    echo "No displays detected"
+    exit 1
+fi
+
 # Check if rofi is available
 if ! command -v rofi &> /dev/null; then
     echo "rofi not found, falling back to cycling presets"

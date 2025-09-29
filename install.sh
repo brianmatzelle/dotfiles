@@ -8,9 +8,91 @@ set -e  # Exit on any error
 DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="$HOME/.config"
 
-echo "🔗 Setting up dotfiles symlinks..."
+echo "🔗 Setting up dotfiles..."
 echo "Dotfiles directory: $DOTFILES_DIR"
 echo "Config directory: $CONFIG_DIR"
+
+# Function to check if running on Arch Linux
+is_arch() {
+    [[ -f /etc/arch-release ]] || [[ -f /etc/pacman.conf ]]
+}
+
+# Function to check if package is installed
+package_installed() {
+    if is_arch; then
+        pacman -Qi "$1" &> /dev/null
+    else
+        command -v "$1" &> /dev/null
+    fi
+}
+
+# Function to install packages
+install_packages() {
+    local packages=("$@")
+    local missing_packages=()
+    
+    echo "📦 Checking for required packages..."
+    
+    # Check which packages are missing
+    for pkg in "${packages[@]}"; do
+        if ! package_installed "$pkg"; then
+            missing_packages+=("$pkg")
+            echo "  ❌ $pkg not found"
+        else
+            echo "  ✅ $pkg already installed"
+        fi
+    done
+    
+    # Install missing packages
+    if [[ ${#missing_packages[@]} -gt 0 ]]; then
+        echo ""
+        echo "Installing missing packages: ${missing_packages[*]}"
+        
+        if is_arch; then
+            echo "Running: sudo pacman -S --needed ${missing_packages[*]}"
+            sudo pacman -S --needed "${missing_packages[@]}"
+        else
+            echo "⚠️  Non-Arch system detected. Please install these packages manually:"
+            printf "  - %s\n" "${missing_packages[@]}"
+            echo ""
+            read -p "Continue with setup? (y/N): " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                echo "Setup cancelled."
+                exit 1
+            fi
+        fi
+        echo "✅ Package installation complete!"
+    else
+        echo "✅ All required packages are already installed!"
+    fi
+    echo ""
+}
+
+# Required packages for the dotfiles setup
+REQUIRED_PACKAGES=(
+    "i3-wm"              # i3 window manager
+    "polybar"            # Status bar
+    "rofi"               # Application launcher
+    "picom"              # Compositor for transparency
+    "nitrogen"           # Wallpaper setter
+    "dunst"              # Notification daemon
+    "nm-applet"          # Network manager applet
+    "xss-lock"           # Screen lock on suspend
+    "i3lock"             # Screen locker
+    "autotiling"         # Auto-tiling for i3
+    "brightnessctl"      # Brightness control
+    "scrot"              # Screenshot tool
+    "ddcutil"            # Display control (for brightness)
+    "pulseaudio"         # Audio system
+    "dex"                # Desktop entry executor
+    "polkit-gnome"       # Authentication agent
+    "git"                # For neovim config
+    "neovim"             # Text editor
+)
+
+# Install required packages
+install_packages "${REQUIRED_PACKAGES[@]}"
 
 # Create .config directory if it doesn't exist
 mkdir -p "$CONFIG_DIR"
