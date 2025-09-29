@@ -160,6 +160,7 @@ PACMAN_REQUIRED_PACKAGES=(
     "spotify-launcher"     # Spotify
     "discord"              # Discord
     "docker"               # Docker, docker-compose is installed by AUR docker-desktop
+    "chromium"             # Chromium
 )
 
 AUR_REQUIRED_PACKAGES=(
