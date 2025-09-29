@@ -121,6 +121,9 @@ install_packages "${REQUIRED_PACKAGES[@]}"
 # Create .config directory if it doesn't exist
 mkdir -p "$CONFIG_DIR"
 
+echo "Creating screenshots directory..."
+mkdir -p "$HOME/Pictures/Screenshots"
+
 # Function to create symlink safely
 create_symlink() {
     local source="$1"
