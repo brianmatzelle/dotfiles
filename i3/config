@@ -306,6 +306,6 @@ bindsym $mod+Shift+t exec --no-startup-id ghostty -e gtop
 # Launch polybar
 exec_always --no-startup-id $HOME/.config/polybar/launch.sh
 
-exec --no-startup-id feh --bg-scale ~/Downloads/mountain-3440x1440-25897.jpg
+exec --no-startup-id feh --bg-scale ~/dotfiles/wallpapers/cowboy.jpg
 
 bindsym $mod+Shift+s exec --no-startup-id scrot -s ~/Pictures/Screenshots/%Y%m%d_%H%M%S.png
