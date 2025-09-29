@@ -18,7 +18,7 @@ is_arch() {
 }
 
 # Function to check if package is installed
-package_installed() {
+is_package_installed() {
     if is_arch; then
         pacman -Qi "$1" &> /dev/null
     else
@@ -26,25 +26,37 @@ package_installed() {
     fi
 }
 
-# Function to install packages
-install_packages() {
+# Helper function to check which packages are missing
+check_missing_packages() {
     local packages=("$@")
     local missing_packages=()
     
-    echo "📦 Checking for required packages..."
+    echo "📦 Checking for required packages..." >&2
     
     # Check which packages are missing
     for pkg in "${packages[@]}"; do
-        if ! package_installed "$pkg"; then
+        if ! is_package_installed "$pkg"; then
             missing_packages+=("$pkg")
-            echo "  ❌ $pkg not found"
+            echo "  ❌ $pkg not found" >&2
         else
-            echo "  ✅ $pkg already installed"
+            echo "  ✅ $pkg already installed" >&2
         fi
     done
     
+    # Return missing packages array to stdout (for mapfile to capture)
+    printf '%s\n' "${missing_packages[@]}"
+}
+
+# Function to install pacman packages
+pacman_install_packages() {
+    local packages=("$@")
+    local missing_packages
+    
+    # Get missing packages using helper function
+    mapfile -t missing_packages < <(check_missing_packages "${packages[@]}")
+    
     # Install missing packages
-    if [[ ${#missing_packages[@]} -gt 0 ]]; then
+    if [[ ${#missing_packages[@]} -gt 0 && -n "${missing_packages[0]}" ]]; then
         echo ""
         echo "Installing missing packages: ${missing_packages[*]}"
         
@@ -69,24 +81,56 @@ install_packages() {
     echo ""
 }
 
+# Function to install AUR packages
+aur_install_packages() {
+    local packages=("$@")
+    local missing_packages
+    
+    # Get missing packages using helper function
+    mapfile -t missing_packages < <(check_missing_packages "${packages[@]}")
+    
+    # Install missing packages
+    if [[ ${#missing_packages[@]} -gt 0 && -n "${missing_packages[0]}" ]]; then
+        echo ""
+        echo "Installing missing packages: ${missing_packages[*]}"
+        
+        if is_arch; then
+            echo "Running: yay -S --needed ${missing_packages[*]}"
+            yay -S --needed "${missing_packages[@]}"
+        else
+            echo "⚠️  Non-Arch system detected. Please install these packages manually:"
+            printf "  - %s\n" "${missing_packages[@]}"
+
+            echo ""
+            read -p "Continue with setup? (y/N): " -n 1 -r
+            echo
+            if [[ ! $REPLY =~ ^[Yy]$ ]]; then
+                echo "Setup cancelled."
+                exit 1
+            fi
+        fi
+        echo "✅ Package installation complete!"
+    else
+        echo "✅ All required packages are already installed!"
+    fi
+    echo ""
+}
+
 # Required packages for the dotfiles setup
-REQUIRED_PACKAGES=(
+PACMAN_REQUIRED_PACKAGES=(
     "i3-wm"              # i3 window manager
     "polybar"            # Status bar
     "rofi"               # Application launcher
     "picom"              # Compositor for transparency
     "nitrogen"           # Wallpaper setter
     "dunst"              # Notification daemon
-    "network-manager-applet"  # Network manager applet
+    "pipewire"           # Audio system
     "xss-lock"           # Screen lock on suspend
     "i3lock"             # Screen locker
     "autotiling"         # Auto-tiling for i3
     "brightnessctl"      # Brightness control
     "scrot"              # Screenshot tool
     "ddcutil"            # Display control (for brightness)
-    "pulseaudio"         # Audio system
-    "dex"                # Desktop entry executor
-    "polkit-gnome"       # Authentication agent
     "git"                # For neovim config
     "neovim"             # Text editor
     "ghostty"            # System monitor
@@ -113,10 +157,24 @@ REQUIRED_PACKAGES=(
     "imagemagick"        # Image manipulation
     "xclip"
     # end yazi deps
+    "spotify-launcher"     # Spotify
+    "discord"              # Discord
+    "docker"               # Docker, docker-compose is installed by AUR docker-desktop
+)
+
+AUR_REQUIRED_PACKAGES=(
+    "cursor-bin"         # Cursor 
+    "postman-bin"        # Postman
+    "docker-desktop"     # Docker Desktop
+    "pipes.sh"             # Pipes.sh
+    "oh-my-posh"           # Oh My Posh
 )
 
 # Install required packages
-install_packages "${REQUIRED_PACKAGES[@]}"
+pacman_install_packages "${PACMAN_REQUIRED_PACKAGES[@]}"
+
+# Install AUR packages
+aur_install_packages "${AUR_REQUIRED_PACKAGES[@]}"
 
 # Create .config directory if it doesn't exist
 mkdir -p "$CONFIG_DIR"
@@ -179,6 +237,13 @@ else
     echo "⚠️  Warning: polybar directory not found in dotfiles"
 fi
 
+# Setup picom config
+if [[ -f "$DOTFILES_DIR/picom/picom.conf" ]]; then
+    create_symlink "$DOTFILES_DIR/picom/picom.conf" "$CONFIG_DIR/picom.conf" "picom"
+else
+    echo "⚠️  Warning: picom config not found in dotfiles"
+fi
+
 # Setup neovim config
 echo "Setting up neovim..."
 NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
@@ -201,7 +266,7 @@ echo ""
 echo "🎉 Dotfiles installation complete!"
 echo ""
 echo "Symlinks created:"
-ls -la "$CONFIG_DIR" | grep -E "(rofi|i3|ghostty|polybar)" || echo "No config symlinks found"
+ls -la "$CONFIG_DIR" | grep -E "(rofi|i3|ghostty|polybar|picom)" || echo "No config symlinks found"
 echo ""
 echo "Neovim config:"
 if [[ -d "$NVIM_CONFIG_DIR" ]]; then
