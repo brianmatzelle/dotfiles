@@ -161,6 +161,7 @@ PACMAN_REQUIRED_PACKAGES=(
     "discord"              # Discord
     "docker"               # Docker, docker-compose is installed by AUR docker-desktop
     "chromium"             # Chromium
+    "ttf-dejavu"           # DejaVu Sans Mono
 )
 
 AUR_REQUIRED_PACKAGES=(
