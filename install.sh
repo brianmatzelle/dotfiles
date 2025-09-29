@@ -35,9 +35,10 @@ echo ""
 case "$OS" in
     "macOS")
         echo "🍎 Running macOS installation script..."
-        if [[ -f "$DOTFILES_DIR/install_mac.sh" ]]; then
-            chmod +x "$DOTFILES_DIR/install_mac.sh"
-            bash "$DOTFILES_DIR/install_mac.sh"
+        MAC_SCRIPT_PATH="$DOTFILES_DIR/_install/mac.sh"
+        if [[ -f "$MAC_SCRIPT_PATH" ]]; then
+            chmod +x "$MAC_SCRIPT_PATH"
+            bash "$MAC_SCRIPT_PATH"
         else
             echo "❌ Error: install_mac.sh not found"
             exit 1
@@ -45,9 +46,10 @@ case "$OS" in
         ;;
     "arch")
         echo "🐧 Running Arch Linux installation script..."
-        if [[ -f "$DOTFILES_DIR/install_arch.sh" ]]; then
-            chmod +x "$DOTFILES_DIR/install_arch.sh"
-            bash "$DOTFILES_DIR/install_arch.sh"
+        ARCH_SCRIPT_PATH="$DOTFILES_DIR/_install/arch.sh"
+        if [[ -f "$ARCH_SCRIPT_PATH" ]]; then
+            chmod +x "$ARCH_SCRIPT_PATH"
+            bash "$ARCH_SCRIPT_PATH"
         else
             echo "❌ Error: install_arch.sh not found"
             exit 1
