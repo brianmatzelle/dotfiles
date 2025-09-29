@@ -3,6 +3,7 @@
 # alias lsmbs="git branch | grep matzelle/ | sed 's|matzelle/||'"
 alias lsmbs="git branch | grep matzelle/"
 alias gcm="git commit -m"
+alias gp="git pull"
 alias main="git switch main"
 ## yarn
 alias ys="yarn start"
@@ -16,6 +17,8 @@ alias tk="tmux kill-session -t"
 alias uc="npm i -g @anthropic-ai/claude-code"
 ## misc
 alias ct="clear && task"
+alias ss="jp2a --color ~/projects/sandbox/logos/ss-logo-long.png"
+alias composure="~/projects/shared/composure/lang/compiler/target/release/composure"
 
 # python
 alias pt="python -m pipenv run pytest"
@@ -27,6 +30,7 @@ alias s-amplify="mvn spring-boot:run -Dspring.profiles.active=local" # start amp
 
 # self
 alias reload='source ~/.zshrc'
+alias c='clear'
 alias edit-zshrc='nvim ~/.zshrc'
 alias edit-aliases='nvim ~/.zsh_aliases'
 alias edit-env='nvim ~/.env'
@@ -36,6 +40,7 @@ alias edit-nvim="nvim ~/.config/nvim/init.lua"
 # coding
 alias lvim="/Users/brianmatzelle/.local/bin/lvim"
 alias ts="tmux new-session -A -s default"
+alias cat="bat -pp"
 
 # Music
 alias dl-mp3='noglob yt-dlp -x --audio-format mp3 --'
