@@ -89,6 +89,10 @@ REQUIRED_PACKAGES=(
     "polkit-gnome"       # Authentication agent
     "git"                # For neovim config
     "neovim"             # Text editor
+    "ghostty"            # System monitor
+    "cmatrix"            # ASCII art matrix
+    "tmux"               # Terminal multiplexer
+    "yay"                # AUR helper
 )
 
 # Install required packages
