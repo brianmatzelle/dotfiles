@@ -77,7 +77,7 @@ REQUIRED_PACKAGES=(
     "picom"              # Compositor for transparency
     "nitrogen"           # Wallpaper setter
     "dunst"              # Notification daemon
-    "nm-applet"          # Network manager applet
+    "network-manager-applet"  # Network manager applet
     "xss-lock"           # Screen lock on suspend
     "i3lock"             # Screen locker
     "autotiling"         # Auto-tiling for i3
