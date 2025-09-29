@@ -93,6 +93,26 @@ REQUIRED_PACKAGES=(
     "cmatrix"            # ASCII art matrix
     "tmux"               # Terminal multiplexer
     "yay"                # AUR helper
+    "feh"                # Image viewer
+    "ripgrep"            # Search tool
+    # begin yazi deps
+    "yazi"               # File manager
+    "ffmpeg"             # Video converter
+    "7zip"
+    "unzip"              # Archive tool
+    "zip"                # Archive tool
+    "tar"                # Archive tool
+    "gzip"               # Archive tool
+    "jq"                 # JSON processor
+    "fd"                 # File finder
+    "bat"                # Cat alternative
+    "btop"               # System monitor
+    "fzf"                # File finder
+    "zoxide"             # Directory jumper
+    "resvg"              # SVG preview
+    "imagemagick"        # Image manipulation
+    "xclip"
+    # end yazi deps
 )
 
 # Install required packages
