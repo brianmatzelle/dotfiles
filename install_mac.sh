@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # macOS Dotfiles Installation Script
-# Sets up symlinks for macOS-compatible configurations
+# Sets up symlinks and installs packages for macOS
 
 set -e  # Exit on any error
 
@@ -11,6 +11,105 @@ CONFIG_DIR="$HOME/.config"
 echo "🍎 Setting up dotfiles for macOS..."
 echo "Dotfiles directory: $DOTFILES_DIR"
 echo "Config directory: $CONFIG_DIR"
+
+# Function to check if Homebrew is installed
+is_homebrew_installed() {
+    command -v brew &> /dev/null
+}
+
+# Function to install Homebrew
+install_homebrew() {
+    echo "🍺 Installing Homebrew..."
+    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+    
+    # Add Homebrew to PATH for this session
+    if [[ -f "/opt/homebrew/bin/brew" ]]; then
+        # Apple Silicon Mac
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    elif [[ -f "/usr/local/bin/brew" ]]; then
+        # Intel Mac
+        eval "$(/usr/local/bin/brew shellenv)"
+    fi
+    
+    echo "✅ Homebrew installed successfully!"
+}
+
+# Function to check if package is installed
+is_package_installed() {
+    brew list "$1" &> /dev/null
+}
+
+# Helper function to check which packages are missing
+check_missing_packages() {
+    local packages=("$@")
+    local missing_packages=()
+    
+    echo "📦 Checking for required packages..." >&2
+    
+    # Check which packages are missing
+    for pkg in "${packages[@]}"; do
+        if ! is_package_installed "$pkg"; then
+            missing_packages+=("$pkg")
+            echo "  ❌ $pkg not found" >&2
+        else
+            echo "  ✅ $pkg already installed" >&2
+        fi
+    done
+    
+    # Return missing packages array to stdout (for mapfile to capture)
+    printf '%s\n' "${missing_packages[@]}"
+}
+
+# Function to install Homebrew packages
+brew_install_packages() {
+    local packages=("$@")
+    local missing_packages
+    
+    # Get missing packages using helper function
+    mapfile -t missing_packages < <(check_missing_packages "${packages[@]}")
+    
+    # Install missing packages
+    if [[ ${#missing_packages[@]} -gt 0 && -n "${missing_packages[0]}" ]]; then
+        echo ""
+        echo "Installing missing packages: ${missing_packages[*]}"
+        echo "Running: brew install ${missing_packages[*]}"
+        brew install "${missing_packages[@]}"
+        echo "✅ Package installation complete!"
+    else
+        echo "✅ All required packages are already installed!"
+    fi
+    echo ""
+}
+
+# Check and install Homebrew if needed
+if ! is_homebrew_installed; then
+    echo "Homebrew not found. Installing..."
+    install_homebrew
+else
+    echo "✅ Homebrew is already installed"
+    # Update Homebrew
+    echo "🔄 Updating Homebrew..."
+    brew update
+fi
+
+# Required packages for the dotfiles setup
+BREW_REQUIRED_PACKAGES=(
+    "git"                # For neovim config and general development
+    "neovim"             # Text editor
+    "tmux"               # Terminal multiplexer
+    "cmatrix"            # ASCII art matrix
+    "btop"               # System monitor
+    "pipes-sh"           # Animated pipes screensaver
+    "ripgrep"            # Search tool
+    "fzf"                # Fuzzy finder
+    "bat"                # Cat alternative
+    "fd"                 # File finder
+    "zoxide"             # Directory jumper
+    "jq"                 # JSON processor
+)
+
+# Install required packages
+brew_install_packages "${BREW_REQUIRED_PACKAGES[@]}"
 
 # Create .config directory if it doesn't exist
 mkdir -p "$CONFIG_DIR"
@@ -82,6 +181,10 @@ fi
 echo ""
 echo "🎉 macOS dotfiles installation complete!"
 echo ""
+echo "Installed packages:"
+echo "  ✅ Core tools: git, neovim, tmux, ripgrep, fzf, bat, fd, zoxide, jq"
+echo "  ✅ Fun tools: cmatrix, btop, pipes-sh"
+echo ""
 echo "Configurations set up:"
 echo "  ✅ Ghostty (with macOS-specific window decorations)"
 echo "  ✅ Tmux (cross-platform terminal multiplexer)"
@@ -98,3 +201,7 @@ if [[ -d "$NVIM_CONFIG_DIR" ]]; then
 else
     echo "❌ Neovim configuration not found"
 fi
+
+echo ""
+echo "🍺 Homebrew packages installed. You can add more packages to the"
+echo "   BREW_REQUIRED_PACKAGES array in install_mac.sh as needed."
