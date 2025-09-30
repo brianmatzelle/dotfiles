@@ -181,17 +181,42 @@ else
     echo "  ❌ Failed to clone neovim configuration"
 fi
 
+# Setup oh-my-posh in .zshrc
+echo "Setting up oh-my-posh..."
+ZSHRC_FILE="$HOME/.zshrc"
+OH_MY_POSH_CONFIG='eval "$(oh-my-posh init zsh --config $(brew --prefix oh-my-posh)/themes/amro.omp.json)"'
+
+# Check if oh-my-posh config already exists in .zshrc
+if [[ -f "$ZSHRC_FILE" ]] && grep -q "oh-my-posh init" "$ZSHRC_FILE"; then
+    echo "  ✅ oh-my-posh configuration already exists in .zshrc"
+else
+    # Create .zshrc if it doesn't exist
+    if [[ ! -f "$ZSHRC_FILE" ]]; then
+        touch "$ZSHRC_FILE"
+        echo "  Created .zshrc file"
+    fi
+    
+    # Append oh-my-posh configuration
+    echo "" >> "$ZSHRC_FILE"
+    echo "# oh-my-posh" >> "$ZSHRC_FILE"
+    echo "$OH_MY_POSH_CONFIG" >> "$ZSHRC_FILE"
+    echo "" >> "$ZSHRC_FILE"
+    echo "  ✅ oh-my-posh configuration added to .zshrc"
+fi
+
 echo ""
 echo "🎉 macOS dotfiles installation complete!"
 echo ""
 echo "Installed packages:"
 echo "  ✅ Core tools: git, neovim, tmux, ripgrep, fzf, bat, fd, zoxide, jq"
 echo "  ✅ Fun tools: cmatrix, btop, pipes-sh"
+echo "  ✅ Shell tools: oh-my-posh"
 echo ""
 echo "Configurations set up:"
 echo "  ✅ Ghostty (with macOS-specific window decorations)"
 echo "  ✅ Tmux (cross-platform terminal multiplexer)"
 echo "  ✅ Neovim (cross-platform editor)"
+echo "  ✅ oh-my-posh (shell prompt theme in ~/.zshrc)"
 echo ""
 echo "Note: Linux-specific configs (i3, polybar, rofi, picom) are not installed on macOS"
 echo ""
