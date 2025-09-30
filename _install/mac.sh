@@ -109,6 +109,7 @@ BREW_REQUIRED_PACKAGES=(
     "asciiquarium"       # Asciiquarium!
     "ghostty"            # Terminal emulator
     "jandedobbeleer/oh-my-posh/oh-my-posh"         # Oh My Posh
+    "font-fira-code-nerd-font"                     # Nerd font
 )
 
 # Install required packages
