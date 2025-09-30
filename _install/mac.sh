@@ -107,6 +107,7 @@ BREW_REQUIRED_PACKAGES=(
     "zoxide"             # Directory jumper
     "jq"                 # JSON processor
     "asciiquarium"       # Asciiquarium!
+    "ghostty"            # Terminal emulator
 )
 
 # Install required packages
