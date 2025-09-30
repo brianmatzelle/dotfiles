@@ -108,6 +108,7 @@ BREW_REQUIRED_PACKAGES=(
     "jq"                 # JSON processor
     "asciiquarium"       # Asciiquarium!
     "ghostty"            # Terminal emulator
+    "oh-my-posh"         # Oh My Posh
 )
 
 # Install required packages
