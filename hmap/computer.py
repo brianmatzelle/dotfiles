@@ -6,13 +6,19 @@ from hmap_visualizer import visualize_hmap, find_memory_distance, export_hmap_to
 
 app = FastMCP()
 
-memory = -1
+memory = 0
 @app.tool
 def get_memory_address():
     """Allocate a unique logical memory address (sequential integer)."""
     global memory
     memory += 1
     return memory
+
+@app.tool
+def set_memory_counter(memory_counter: int):
+    """Set the memory counter to a given value, whatever the current HMAP is up to."""
+    global memory
+    memory = memory_counter
 
 @app.tool
 def generate_uuid():
@@ -144,4 +150,4 @@ def import_hmap_protocol(filename: str):
     return import_hmap_from_json(json_data)
 
 if __name__ == "__main__":
-  app.run(transport="http", port=8000)
+  app.run(transport="http", port=8001)
