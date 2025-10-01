@@ -1,0 +1,141 @@
+{
+  "hmap_version": "1.0",
+  "exported_at": "2025-10-01",
+  "nodes": [
+    {
+      "logical_addr": "0x0008",
+      "physical_addr": "9496496",
+      "title": "[L0.INDEX] ROOT",
+      "layer": "L0",
+      "node_type": "INDEX",
+      "parent_ptr": null,
+      "child_ptrs": [
+        "0x0009",
+        "0x000A",
+        "0x000F"
+      ],
+      "content_preview": "Master index for all hierarchical memories. Entry point for context traversal. PERSISTENT WORKSPACE: This tree grows organically across sessions and projects.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x0009",
+      "physical_addr": "9496491",
+      "title": "[L0.PROTOCOL] HMAP-Definition",
+      "layer": "L0",
+      "node_type": "PROTOCOL",
+      "parent_ptr": "0x0008",
+      "child_ptrs": [
+        "0x0011"
+      ],
+      "content_preview": "Hierarchical Memory Access Protocol - AUTONOMOUS SELF-ORGANIZATION. SESSION CONTINUITY: CHECK FIRST, THEN ACT. Always call print_memory_map at session start. Memory is PERSISTENT across sessions.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x000A",
+      "physical_addr": "9496498",
+      "title": "[L1.INDEX] Project-Ada",
+      "layer": "L1",
+      "node_type": "INDEX",
+      "parent_ptr": "0x0008",
+      "child_ptrs": [
+        "0x000B",
+        "0x000C",
+        "0x000D",
+        "0x000E"
+      ],
+      "content_preview": "Ada is a SageSure company intelligence assistant chatbot that integrates MCP to allow employees to chat with Claude and get answers from Confluence/Jira and portfolio-manager tools.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x000B",
+      "physical_addr": "9496499",
+      "title": "[L2.NODE] Ada-Architecture",
+      "layer": "L2",
+      "node_type": "NODE",
+      "parent_ptr": "0x000A",
+      "child_ptrs": [
+        "0x0010",
+        "0x0012"
+      ],
+      "content_preview": "Next.js web client (localhost:3000) + FastAPI MCP server (localhost:8000). HMAP memory management tools integrated.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x000C",
+      "physical_addr": "9496502",
+      "title": "[L2.NODE] Ada-Branding",
+      "layer": "L2",
+      "node_type": "NODE",
+      "parent_ptr": "0x000A",
+      "child_ptrs": [],
+      "content_preview": "Professional SageSure branding. Logo: ss-logo-bg-rm.png, Brand Color: #004438.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x000D",
+      "physical_addr": "9496505",
+      "title": "[L2.NODE] Ada-Features",
+      "layer": "L2",
+      "node_type": "NODE",
+      "parent_ptr": "0x000A",
+      "child_ptrs": [],
+      "content_preview": "MCP-powered tool integrations. Confluence/Jira tools working, Portfolio Manager tools working.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x000E",
+      "physical_addr": "9496507",
+      "title": "[L2.NODE] Ada-Status",
+      "layer": "L2",
+      "node_type": "NODE",
+      "parent_ptr": "0x000A",
+      "child_ptrs": [],
+      "content_preview": "100% FUNCTIONAL WITH HMAP PROTOCOL + PATH-FINDING. All integrations verified. Export/import tools operational.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x000F",
+      "physical_addr": "9496762",
+      "title": "[SYSTEM] Address-Translation-Table",
+      "layer": "UNKNOWN",
+      "node_type": "UNKNOWN",
+      "parent_ptr": null,
+      "child_ptrs": [],
+      "content_preview": "Maps logical addresses to physical memory IDs. 0x0008\u21929496496 (ROOT), 0x0009\u21929496491 (HMAP), 0x000A\u21929496498 (Ada), 0x000B\u21929496499 (Architecture), 0x000C\u21929496502 (Branding), 0x000D\u21929496505 (Features), 0x000E\u21929496507 (Status), 0x000F\u21929496762 (ATT), 0x0010\u21929496980 (ChatInterface), 0x0011\u21929497008 (Checklist), 0x0012\u21929497522 (MemoryMap).",
+      "path": null
+    },
+    {
+      "logical_addr": "0x0010",
+      "physical_addr": "9496980",
+      "title": "[L3.LEAF] Ada-Frontend-ChatInterface",
+      "layer": "L3",
+      "node_type": "LEAF",
+      "parent_ptr": "0x000B",
+      "child_ptrs": [],
+      "content_preview": "Main chat interface component for Ada. React component with streaming, tool call visualization, message history.",
+      "path": "~/projects/owner/ada/ada-nextjs/src/components/ChatInterface.tsx"
+    },
+    {
+      "logical_addr": "0x0011",
+      "physical_addr": "9497008",
+      "title": "[L0.CHECKLIST] HMAP-Autonomous-Triggers",
+      "layer": "L0",
+      "node_type": "CHECKLIST",
+      "parent_ptr": "0x0009",
+      "child_ptrs": [],
+      "content_preview": "Autonomous update checklist. SESSION START: Call print_memory_map(), check if project exists. WORK TRIGGERS: New files, context switches, implementation work. Never assume tree is empty.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x0012",
+      "physical_addr": "9497522",
+      "title": "[L3.LEAF] Ada-MCP-Tools-MemoryMap",
+      "layer": "L3",
+      "node_type": "LEAF",
+      "parent_ptr": "0x000B",
+      "child_ptrs": [],
+      "content_preview": "MCP tools for HMAP: print_memory_map, find_path_between_memories, export_hmap_protocol, import_hmap_protocol. Enables tree visualization and path-finding.",
+      "path": "~/projects/owner/ada/server/computer.py"
+    }
+  ]
+}

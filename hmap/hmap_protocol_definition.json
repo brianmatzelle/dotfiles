@@ -1,0 +1,55 @@
+{
+  "hmap_version": "1.0",
+  "exported_at": "2025-10-01",
+  "nodes": [
+    {
+      "logical_addr": "0x0008",
+      "physical_addr": "9498149",
+      "title": "[L0.INDEX] ROOT",
+      "layer": "L0",
+      "node_type": "INDEX",
+      "parent_ptr": null,
+      "child_ptrs": [
+        "0x0009",
+        "0x000F"
+      ],
+      "content_preview": "Master index for all hierarchical memories. Entry point for context traversal. PERSISTENT WORKSPACE: This tree grows organically across sessions and projects. Always check structure before creating new branches.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x0009",
+      "physical_addr": "9498152",
+      "title": "[L0.PROTOCOL] HMAP-Definition",
+      "layer": "L0",
+      "node_type": "PROTOCOL",
+      "parent_ptr": "0x0008",
+      "child_ptrs": [
+        "0x0011"
+      ],
+      "content_preview": "Hierarchical Memory Access Protocol - AUTONOMOUS SELF-ORGANIZATION. SESSION CONTINUITY: CHECK FIRST, THEN ACT. At session start or when user mentions project: 1) Call print_memory_map(), 2) Check if exists in tree, 3) Navigate to existing or create new. Memory is PERSISTENT across sessions. Tree GROWS organically.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x000F",
+      "physical_addr": "9498159",
+      "title": "[SYSTEM] Address-Translation-Table",
+      "layer": "UNKNOWN",
+      "node_type": "UNKNOWN",
+      "parent_ptr": null,
+      "child_ptrs": [],
+      "content_preview": "Maps pre-allocated logical addresses (from get_memory_address) to physical memory IDs (assigned by system). Always call get_memory_address() BEFORE creating memories. Update this table with every new memory creation. Must stay synchronized with tree.",
+      "path": null
+    },
+    {
+      "logical_addr": "0x0011",
+      "physical_addr": "9498156",
+      "title": "[L0.CHECKLIST] HMAP-Autonomous-Triggers",
+      "layer": "L0",
+      "node_type": "CHECKLIST",
+      "parent_ptr": "0x0009",
+      "child_ptrs": [],
+      "content_preview": "Autonomous update checklist. SESSION START TRIGGERS: Call print_memory_map(), check if project exists. WORK TRIGGERS: New files, context switches, implementation work, architectural decisions. ANTI-PATTERNS: Waiting to be asked, assuming tree is empty, creating duplicates. CORRECT: Check first, update proactively, maintain statefulness.",
+      "path": null
+    }
+  ]
+}
