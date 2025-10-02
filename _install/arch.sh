@@ -5,7 +5,7 @@
 
 set -e  # Exit on any error
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_DIR="$HOME/.config"
 
 echo "🐧 Setting up dotfiles for Arch Linux..."
@@ -172,7 +172,6 @@ AUR_REQUIRED_PACKAGES=(
     "docker-desktop"     # Docker Desktop
     "pipes.sh"             # Pipes.sh
     "oh-my-posh"           # Oh My Posh
-    "google-chrome"        # Google Chrome
     "mullvad-vpn"         # Mullvad VPN
 )
 
@@ -231,6 +230,8 @@ fi
 
 # Setup ghostty config
 if [[ -d "$DOTFILES_DIR/ghostty" ]]; then
+    echo "  Generating  ghostty config..."
+    bash "$DOTFILES_DIR/ghostty/generate-config.sh"
     create_symlink "$DOTFILES_DIR/ghostty" "$CONFIG_DIR/ghostty" "ghostty"
 else
     echo "⚠️  Warning: ghostty directory not found in dotfiles"
