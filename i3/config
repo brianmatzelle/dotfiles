@@ -33,8 +33,8 @@ exec --no-startup-id dex --autostart --environment i3
 exec --no-startup-id xset s 3600 3600
 exec --no-startup-id xset dpms 3600 3600 3600
 
-# Lock screen on suspend
-exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork
+# Lock screen on suspend (matrix theme: black background)
+exec --no-startup-id xss-lock --transfer-sleep-lock -- i3lock --nofork -c 000000
 
 # Network manager applet
 exec --no-startup-id nm-applet
