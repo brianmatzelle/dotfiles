@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# Only run on main display, not VNC
+if [ "$DISPLAY" != ":0" ] && [ "$DISPLAY" != ":0.0" ]; then
+  exit 0
+fi
+
 # Terminate already running bar instances
 polybar-msg cmd quit
 
