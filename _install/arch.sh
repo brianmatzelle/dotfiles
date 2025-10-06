@@ -172,7 +172,6 @@ AUR_REQUIRED_PACKAGES=(
     "docker-desktop"     # Docker Desktop
     "pipes.sh"             # Pipes.sh
     "oh-my-posh"           # Oh My Posh
-    "mullvad-vpn"         # Mullvad VPN
 )
 
 # Install required packages
