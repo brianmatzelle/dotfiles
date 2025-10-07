@@ -157,9 +157,15 @@ else
     echo "⚠️  Warning: ghostty directory not found in dotfiles"
 fi
 
-# Setup tmux config (cross-platform)
+# Setup tmux config (macOS-specific work config)
 if [[ -d "$DOTFILES_DIR/tmux" ]]; then
-    create_symlink "$DOTFILES_DIR/tmux" "$CONFIG_DIR/tmux" "tmux"
+    create_symlink "$DOTFILES_DIR/tmux" "$CONFIG_DIR/tmux" "tmux directory"
+    # Create symlink to work.tmux.conf as tmux.conf
+    if [[ -f "$DOTFILES_DIR/tmux/work.tmux.conf" ]]; then
+        create_symlink "$DOTFILES_DIR/tmux/work.tmux.conf" "$HOME/.tmux.conf" "tmux work config"
+    else
+        echo "⚠️  Warning: work.tmux.conf not found in tmux directory"
+    fi
 else
     echo "⚠️  Warning: tmux directory not found in dotfiles"
 fi
