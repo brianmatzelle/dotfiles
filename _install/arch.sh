@@ -250,6 +250,20 @@ else
     echo "⚠️  Warning: picom config not found in dotfiles"
 fi
 
+# Setup GTK 3.0 config
+if [[ -d "$DOTFILES_DIR/gtk-3.0" ]]; then
+    create_symlink "$DOTFILES_DIR/gtk-3.0" "$CONFIG_DIR/gtk-3.0" "gtk-3.0"
+else
+    echo "⚠️  Warning: gtk-3.0 directory not found in dotfiles"
+fi
+
+# Setup GTK 4.0 config
+if [[ -d "$DOTFILES_DIR/gtk-4.0" ]]; then
+    create_symlink "$DOTFILES_DIR/gtk-4.0" "$CONFIG_DIR/gtk-4.0" "gtk-4.0"
+else
+    echo "⚠️  Warning: gtk-4.0 directory not found in dotfiles"
+fi
+
 # Setup neovim config
 echo "Setting up neovim..."
 NVIM_CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/nvim"
@@ -268,11 +282,20 @@ else
     echo "  ❌ Failed to clone neovim configuration"
 fi
 
+# Set GNOME/GTK dark mode preference
+echo "Setting dark mode preference..."
+if command -v gsettings &> /dev/null; then
+    gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
+    echo "  ✅ Dark mode preference set"
+else
+    echo "  ⚠️  gsettings not available, skipping dark mode preference"
+fi
+
 echo ""
 echo "🎉 Arch Linux dotfiles installation complete!"
 echo ""
 echo "Symlinks created:"
-ls -la "$CONFIG_DIR" | grep -E "(rofi|i3|ghostty|polybar|picom)" || echo "No config symlinks found"
+ls -la "$CONFIG_DIR" | grep -E "(rofi|i3|ghostty|polybar|picom|gtk)" || echo "No config symlinks found"
 echo ""
 echo "Neovim config:"
 if [[ -d "$NVIM_CONFIG_DIR" ]]; then
