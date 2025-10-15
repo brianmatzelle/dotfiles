@@ -5,7 +5,7 @@
 
 set -e  # Exit on any error
 
-DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 CONFIG_DIR="$HOME/.config"
 
 echo "🍎 Setting up dotfiles for macOS..."
