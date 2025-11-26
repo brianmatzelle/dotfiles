@@ -108,6 +108,7 @@ BREW_REQUIRED_PACKAGES=(
     "jq"                 # JSON processor
     "asciiquarium"       # Asciiquarium!
     "ghostty"            # Terminal emulator
+    "yazi"
     "jandedobbeleer/oh-my-posh/oh-my-posh"         # Oh My Posh
     "font-fira-code-nerd-font"                     # Nerd font
 )
