@@ -97,16 +97,20 @@ BREW_REQUIRED_PACKAGES=(
     "git"                # For neovim config and general development
     "neovim"             # Text editor
     "tmux"               # Terminal multiplexer
-    "cmatrix"            # ASCII art matrix
     "btop"               # System monitor
     "pipes-sh"           # Animated pipes screensaver
+    "cmatrix"            # ASCII art matrix
+    "nyancat"
+    "cbonsai"
+    "libcaca"
+    "tty-clock"
+    "asciiquarium"       # Asciiquarium!
     "ripgrep"            # Search tool
     "fzf"                # Fuzzy finder
     "bat"                # Cat alternative
     "fd"                 # File finder
     "zoxide"             # Directory jumper
     "jq"                 # JSON processor
-    "asciiquarium"       # Asciiquarium!
     "ghostty"            # Terminal emulator
     "yazi"
     "jandedobbeleer/oh-my-posh/oh-my-posh"         # Oh My Posh
