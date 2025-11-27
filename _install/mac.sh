@@ -103,6 +103,7 @@ BREW_REQUIRED_PACKAGES=(
     "nyancat"
     "cbonsai"
     "libcaca"
+    "lavat"
     "tty-clock"
     "asciiquarium"       # Asciiquarium!
     "ripgrep"            # Search tool
