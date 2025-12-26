@@ -81,6 +81,36 @@ pacman_install_packages() {
     echo ""
 }
 
+# Function to install yay if not already installed
+install_yay() {
+    if command -v yay &> /dev/null; then
+        echo "✅ yay is already installed"
+        return 0
+    fi
+
+    echo "📦 Installing yay AUR helper..."
+    echo "yay is required to install AUR packages"
+
+    # Install dependencies
+    sudo pacman -S --needed git base-devel
+
+    # Clone and build yay
+    local temp_dir=$(mktemp -d)
+    cd "$temp_dir"
+    git clone https://aur.archlinux.org/yay.git
+    cd yay
+    makepkg -si --noconfirm
+    cd -
+    rm -rf "$temp_dir"
+
+    if command -v yay &> /dev/null; then
+        echo "✅ yay installed successfully"
+    else
+        echo "❌ Failed to install yay"
+        return 1
+    fi
+}
+
 # Function to install AUR packages
 aur_install_packages() {
     local packages=("$@")
@@ -136,7 +166,6 @@ PACMAN_REQUIRED_PACKAGES=(
     "ghostty"            # Terminal emulator
     "cmatrix"            # ASCII art matrix
     "tmux"               # Terminal multiplexer
-    "yay"                # AUR helper
     "feh"                # Image viewer
     "ripgrep"            # Search tool
     # begin yazi deps
@@ -153,7 +182,6 @@ PACMAN_REQUIRED_PACKAGES=(
     "btop"               # System monitor
     "fzf"                # File finder
     "zoxide"             # Directory jumper
-    "resvg"              # SVG preview
     "imagemagick"        # Image manipulation
     "xclip"
     # end yazi deps
@@ -167,15 +195,19 @@ PACMAN_REQUIRED_PACKAGES=(
 )
 
 AUR_REQUIRED_PACKAGES=(
-    "cursor-bin"         # Cursor 
+    "cursor-bin"         # Cursor
     "postman-bin"        # Postman
     "docker-desktop"     # Docker Desktop
-    "pipes.sh"             # Pipes.sh
-    "oh-my-posh"           # Oh My Posh
+    "pipes.sh"           # Pipes.sh
+    "oh-my-posh"         # Oh My Posh
+    "resvg"              # SVG preview (for yazi)
 )
 
 # Install required packages
 pacman_install_packages "${PACMAN_REQUIRED_PACKAGES[@]}"
+
+# Install yay if needed (before AUR packages)
+install_yay
 
 # Install AUR packages
 aur_install_packages "${AUR_REQUIRED_PACKAGES[@]}"
