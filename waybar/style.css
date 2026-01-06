@@ -1,0 +1,147 @@
+/* Waybar Style - Dracula Theme (matching Polybar) */
+
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "DejaVu Sans Mono", "JetBrainsMono Nerd Font";
+    font-size: 13px;
+    min-height: 0;
+}
+
+window#waybar {
+    background: #282A36;
+    color: #F8F8F2;
+}
+
+/* Workspace buttons */
+#workspaces {
+    margin: 0 4px;
+}
+
+#workspaces button {
+    padding: 0 8px;
+    color: #F8F8F2;
+    background: transparent;
+    border-bottom: 3px solid transparent;
+}
+
+#workspaces button:hover {
+    background: rgba(68, 71, 90, 0.5);
+    box-shadow: none;
+}
+
+#workspaces button.active {
+    background: #50FA7B;
+    color: #282A36;
+    border-bottom: 3px solid #50FA7B;
+}
+
+#workspaces button.urgent {
+    background: #FF5555;
+    color: #F8F8F2;
+}
+
+/* Submap indicator (resize mode, etc.) */
+#submap {
+    background: #50FA7B;
+    color: #282A36;
+    padding: 0 10px;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+/* Module styling */
+#disk,
+#custom-brightness,
+#pulseaudio,
+#memory,
+#cpu,
+#battery,
+#network,
+#clock {
+    padding: 0 10px;
+    margin: 0 2px;
+}
+
+/* Disk */
+#disk {
+    color: #50FA7B;
+}
+
+/* Brightness */
+#custom-brightness {
+    color: #50FA7B;
+}
+
+/* Volume */
+#pulseaudio {
+    color: #50FA7B;
+}
+
+#pulseaudio.muted {
+    color: #6272A4;
+}
+
+/* Memory */
+#memory {
+    color: #50FA7B;
+}
+
+/* CPU */
+#cpu {
+    color: #50FA7B;
+}
+
+/* Battery */
+#battery {
+    color: #50FA7B;
+}
+
+#battery.charging {
+    color: #50FA7B;
+}
+
+#battery.warning:not(.charging) {
+    color: #FFB86C;
+}
+
+#battery.critical:not(.charging) {
+    color: #FF5555;
+    animation: blink 1s linear infinite;
+}
+
+@keyframes blink {
+    to {
+        opacity: 0.5;
+    }
+}
+
+/* Network */
+#network {
+    color: #50FA7B;
+}
+
+#network.disconnected {
+    color: #FF5555;
+}
+
+/* Clock */
+#clock {
+    color: #50FA7B;
+    font-weight: bold;
+}
+
+/* Separators */
+#disk,
+#custom-brightness,
+#pulseaudio,
+#memory,
+#cpu,
+#battery,
+#network {
+    border-right: 1px solid #6272A4;
+}
+
+#clock {
+    border-right: none;
+}
