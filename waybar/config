@@ -13,7 +13,7 @@
         "memory",
         "cpu",
         "battery",
-        "network",
+        "custom/network",
         "clock"
     ],
 
@@ -105,13 +105,12 @@
         "tooltip-format": "{timeTo}, {capacity}%"
     },
 
-    "network": {
+    "custom/network": {
+        "exec": "~/.config/waybar/scripts/network_ips.sh",
+        "return-type": "json",
         "interval": 3,
-        "format-wifi": "󰩟 {essid}",
-        "format-ethernet": "󰈀 {ipaddr}",
-        "format-disconnected": "󰌙 Disconnected",
-        "tooltip-format": "{ifname}: {ipaddr}/{cidr}",
-        "tooltip-format-wifi": "{essid} ({signalStrength}%): {ipaddr}",
+        "format": "󰩟 {}",
+        "escape": false,
         "on-click": "nm-connection-editor"
     },
 
