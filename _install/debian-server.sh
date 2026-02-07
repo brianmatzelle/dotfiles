@@ -84,15 +84,30 @@ APT_REQUIRED_PACKAGES=(
     # Modern CLI tools
     "bat"                # Cat alternative (batcat on Debian)
     "btop"               # System monitor
+    "htop"               # Process viewer
+    "tree"               # Directory structure viewer
+    "ncdu"               # Disk usage analyzer
+    "lsof"               # List open files/ports
 
     # Archive tools
     "unzip"              # Archive tool
     "zip"                # Archive tool
 
-    # Server essentials
+    # Networking & security
     "wireguard-tools"    # WireGuard VPN
+    "ufw"                # Uncomplicated firewall
+    "dnsutils"           # dig, nslookup
+    "rsync"              # File sync/backups
+    "ca-certificates"    # SSL root certificates
+    "gnupg"              # GPG for repo signing
+
+    # Server essentials
     "docker.io"          # Docker
     "docker-compose"     # Docker Compose
+
+    # Runtimes
+    "openjdk-21-jre-headless"  # Java for Minecraft server
+    "python3-venv"             # Python virtual environments
 
     # Fun
     "cmatrix"            # Matrix screensaver
