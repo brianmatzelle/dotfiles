@@ -55,14 +55,23 @@ case "$OS" in
             exit 1
         fi
         ;;
-    "debian"|"redhat")
-        echo "⚠️  $OS detected but not currently supported"
+    "debian")
+        echo "🐧 Running Debian server installation script..."
+        DEBIAN_SCRIPT_PATH="$DOTFILES_DIR/_install/debian-server.sh"
+        if [[ -f "$DEBIAN_SCRIPT_PATH" ]]; then
+            chmod +x "$DEBIAN_SCRIPT_PATH"
+            bash "$DEBIAN_SCRIPT_PATH"
+        else
+            echo "❌ Error: debian-server.sh not found"
+            exit 1
+        fi
+        ;;
+    "redhat")
+        echo "⚠️  RedHat detected but not currently supported"
         echo "This dotfiles setup is currently designed for:"
+        echo "  - Arch Linux (full desktop support)"
         echo "  - macOS (limited config support)"
-        echo "  - Arch Linux (full config support)"
-        echo ""
-        echo "You can manually run install_arch.sh if you want to attempt"
-        echo "the Arch Linux setup on your $OS system."
+        echo "  - Debian (server support)"
         exit 1
         ;;
     "unknown")
